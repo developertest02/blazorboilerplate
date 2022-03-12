@@ -4,6 +4,7 @@ using BlazorBoilerplate.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorBoilerplate.Storage.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220312115305_EXERCISE_TABLE")]
+    partial class EXERCISE_TABLE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,46 +243,6 @@ namespace BlazorBoilerplate.Storage.Migrations.ApplicationDb
                     b.HasKey("Id");
 
                     b.ToTable("Logs");
-                });
-
-            modelBuilder.Entity("BlazorBoilerplate.Infrastructure.Storage.DataModels.Exercise", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2(7)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("ModifiedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2(7)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.ToTable("Exercises", (string)null);
                 });
 
             modelBuilder.Entity("BlazorBoilerplate.Infrastructure.Storage.DataModels.Message", b =>
@@ -558,21 +520,6 @@ namespace BlazorBoilerplate.Storage.Migrations.ApplicationDb
                     b.Navigation("Role");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("BlazorBoilerplate.Infrastructure.Storage.DataModels.Exercise", b =>
-                {
-                    b.HasOne("BlazorBoilerplate.Infrastructure.Storage.DataModels.ApplicationUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("BlazorBoilerplate.Infrastructure.Storage.DataModels.ApplicationUser", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById");
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("ModifiedBy");
                 });
 
             modelBuilder.Entity("BlazorBoilerplate.Infrastructure.Storage.DataModels.Message", b =>

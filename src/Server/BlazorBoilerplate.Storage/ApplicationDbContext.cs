@@ -29,6 +29,7 @@ namespace BlazorBoilerplate.Storage
         private IUserSession UserSession { get; set; }
         public DbSet<DbLog> Logs { get; set; }
 
+        public DbSet<Exercise> Exercises { get; set; }
         /* We define a default value for TenantInfo. This is a hack. FinBuckle does not provide any method to init TenantInfo or define a default value when seeding the database (in DatabaseInitializer, HttpContext is not yet initialized). */
         public ApplicationDbContext(TenantInfo tenantInfo, DbContextOptions<ApplicationDbContext> options, IUserSession userSession)
             : base(tenantInfo ?? TenantStoreDbContext.DefaultTenant, options)
@@ -80,6 +81,8 @@ namespace BlazorBoilerplate.Storage
             modelBuilder.Entity<TenantSetting>().ToTable("TenantSettings").HasKey(i => new { i.TenantId, i.Key }); ;
 
             modelBuilder.Entity<Message>().ToTable("Messages");
+
+            modelBuilder.Entity<Exercise>().ToTable("Exercises");
 
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
 
