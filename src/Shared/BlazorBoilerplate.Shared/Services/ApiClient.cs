@@ -62,5 +62,20 @@ namespace BlazorBoilerplate.Shared.Services
         {
             return await httpClient.PostJsonAsync<ApiResponseDto>("api/Email/SendTestEmail", email);
         }
+
+        public async Task<QueryResult<Exercise>> GetExercises(ExerciseFilter filter, int? take = null, int? skip = null)
+        {
+            return await GetItems<Exercise>(from: "Exercises", orderByDescending: i => i.CreatedOn, take: take, skip: skip, parameters: filter?.ToDictionary());
+        }
+
+        public async Task<QueryResult<ApplicationUser>> GetExerciseCreators(ExerciseFilter filter)
+        {
+            return await GetItems<ApplicationUser>(from: "ExerciseCreators", orderBy: i => i.UserName, parameters: filter?.ToDictionary());
+        }
+
+        public async Task<QueryResult<ApplicationUser>> GetExerciseEditors(ExerciseFilter filter)
+        {
+            return await GetItems<ApplicationUser>(from: "ExerciseEditors", orderBy: i => i.UserName, parameters: filter?.ToDictionary());
+        }
     }
 }

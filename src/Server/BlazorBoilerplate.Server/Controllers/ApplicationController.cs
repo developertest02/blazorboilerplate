@@ -60,7 +60,7 @@ namespace BlazorBoilerplate.Server.Controllers
         {
             return persistenceManager.GetEntities<ApplicationRole>().AsNoTracking().OrderBy(i => i.Name);
         }
-
+        #region ToDos
         [AllowAnonymous]
         [HttpGet]
         public IQueryable<Todo> Todos([FromQuery] ToDoFilter filter)
@@ -94,7 +94,43 @@ namespace BlazorBoilerplate.Server.Controllers
 
             return Todos(filter).Where(i => i.ModifiedBy != null).Select(i => i.ModifiedBy).Distinct().AsNoTracking();
         }
+        #endregion
 
+        #region Exercises
+        [AllowAnonymous]
+        [HttpGet]
+        public IQueryable<Exercise> Exercises([FromQuery] ExerciseFilter filter)
+        {
+            return persistenceManager.GetEntities<Exercise>().AsNoTracking()
+                .Include(i => i.CreatedBy)
+                .Include(i => i.ModifiedBy)
+                .Where(i =>
+                (filter.From == null || i.CreatedOn >= filter.From) && (filter.To == null || i.CreatedOn <= filter.To) &&
+                (filter.CreatedById == null || i.CreatedById == filter.CreatedById) &&
+                (filter.ModifiedById == null || i.ModifiedById == filter.ModifiedById) &&
+                (filter.Name == null || i.Name == filter.Name) &&
+                (filter.Query == null || i.Name.ToLower().Contains(filter.Query.ToLower())))
+                .OrderByDescending(i => i.CreatedOn);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IQueryable<ApplicationUser> ExerciseCreators([FromQuery] ExerciseFilter filter)
+        {
+            filter.CreatedById = null;
+
+            return Exercises(filter).Where(i => i.CreatedBy != null).Select(i => i.CreatedBy).Distinct().AsNoTracking();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IQueryable<ApplicationUser> ExerciseEditors([FromQuery] ExerciseFilter filter)
+        {
+            filter.ModifiedById = null;
+
+            return Exercises(filter).Where(i => i.ModifiedBy != null).Select(i => i.ModifiedBy).Distinct().AsNoTracking();
+        }
+        #endregion
         [HttpGet]
         [Authorize(Policies.IsAdmin)]
         public IQueryable<DbLog> Logs()

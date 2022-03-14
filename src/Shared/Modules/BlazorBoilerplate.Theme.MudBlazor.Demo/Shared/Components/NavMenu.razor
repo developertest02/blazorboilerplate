@@ -14,7 +14,9 @@
 <MudNavLink Href="@navigationManager.ToAbsoluteUri("todos-paging").AbsoluteUri" Icon="@Icons.Filled.ListAlt">
     @L["TodoNav"] Paging
 </MudNavLink>
-
+<MudNavLink Href="@navigationManager.ToAbsoluteUri("exercises-paging").AbsoluteUri" Icon="@Icons.Filled.ListAlt">
+    @L["ExercisesNav"] Paging
+</MudNavLink>
 <MudNavGroup Title="@L["AppNavFeatures"]" Icon="@Icons.Filled.Stars">
     <MudNavLink Href="@navigationManager.ToAbsoluteUri("drag_and_drop").AbsoluteUri" Icon="@Icons.Filled.TouchApp">
         @L["AppNavDragAndDrop"]

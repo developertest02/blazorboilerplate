@@ -24,6 +24,10 @@ namespace BlazorBoilerplate.Shared.Interfaces
         Task<QueryResult<ApplicationUser>> GetTodoCreators(ToDoFilter filter);
         Task<QueryResult<ApplicationUser>> GetTodoEditors(ToDoFilter filter);
 
+        Task<QueryResult<Exercise>> GetExercises(ExerciseFilter filter, int? take = null, int? skip = null);
+        Task<QueryResult<ApplicationUser>> GetExerciseCreators(ExerciseFilter filter);
+        Task<QueryResult<ApplicationUser>> GetExerciseEditors(ExerciseFilter filter);
+
         Task<ApiResponseDto> SendTestEmail(EmailDto email);
     }
 }

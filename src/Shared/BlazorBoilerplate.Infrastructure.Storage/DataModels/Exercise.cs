@@ -1,4 +1,5 @@
 ﻿using BlazorBoilerplate.Infrastructure.Storage.DataInterfaces;
+using BlazorBoilerplate.Infrastructure.Storage.Permissions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlazorBoilerplate.Infrastructure.Storage.DataModels
 {
+    [Permissions(Actions.Delete)]
     public partial class Exercise : IAuditable, ISoftDelete
     {
         [Key]
