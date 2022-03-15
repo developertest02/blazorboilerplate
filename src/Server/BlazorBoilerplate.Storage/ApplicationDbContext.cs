@@ -86,6 +86,8 @@ namespace BlazorBoilerplate.Storage
 
             modelBuilder.ApplyConfiguration(new MessageConfiguration());
 
+            modelBuilder.Entity<Exercise>().Property(n => n.Id).HasDefaultValueSql("newid()");
+
             SetGlobalQueryFilters(modelBuilder);
         }
 

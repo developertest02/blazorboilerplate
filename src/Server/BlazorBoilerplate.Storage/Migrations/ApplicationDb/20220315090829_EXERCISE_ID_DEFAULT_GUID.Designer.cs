@@ -4,6 +4,7 @@ using BlazorBoilerplate.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorBoilerplate.Storage.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220315090829_EXERCISE_ID_DEFAULT_GUID")]
+    partial class EXERCISE_ID_DEFAULT_GUID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,7 +250,7 @@ namespace BlazorBoilerplate.Storage.Migrations.ApplicationDb
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
+                        .HasDefaultValue(new Guid("0f82bd55-8175-4568-ac95-2707ae9aa6f3"));
 
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
